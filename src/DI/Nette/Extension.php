@@ -5,6 +5,8 @@ namespace DateTi\DI\Nette;
 
 use DateTi\DateTi;
 use Nette\DI\CompilerExtension;
+use Nette\Schema\Expect;
+use Nette\Schema\Processor;
 
 class Extension extends CompilerExtension
 {
@@ -30,27 +32,19 @@ class Extension extends CompilerExtension
 
     public function loadConfiguration(): void
     {
+        $schema = Expect::structure([
+            'timezone' => Expect::string('Europe/Prague'),
+            'countries' => Expect::array([]),
+            'localizations' => Expect::array([]),
+        ]);
         $builder = $this->getContainerBuilder();
-
         $config = $this->getConfig();
+        $processor = new Processor();
+        $config = $processor->process($schema, $config);
 
-        $this->checkConfig($config);
+        $timezone = new \DateTimeZone($config->timezone);
 
-        $builder->addDefinition($this->prefix('dateTi.calendar'))
-            ->setFactory(DateTi::class, [$config]);
-    }
-
-    protected function checkConfig(array & $config): void
-    {
-        $this->checkCountry($config);
-    }
-
-    protected function checkCountry(array & $config): void
-    {
-        foreach ($config as $group => $setting) {
-            if (!array_key_exists('country', $setting)) {
-                $config[$group]['country'] = 'CzechRepublic';
-            }
-        }
+        $builder->addDefinition($this->prefix('calendar'))
+            ->setFactory(DateTi::class, ['now', $timezone]);
     }
 }
