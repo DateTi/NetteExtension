@@ -1,0 +1,24 @@
+{
+    "name": "dateti/nette-extension",
+    "description": "Extension DateTi for Nette",
+    "type": "library",
+    "require": {
+        "dateti/dateti": "^0.1.0",
+        "nette/di": "^3.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "DateTi\\DI\\": "src/DI"
+        }
+    },
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Jan Galek",
+            "email": "admin@gcore.cz"
+        }
+    ]
+}
