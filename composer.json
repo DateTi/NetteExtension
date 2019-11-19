@@ -3,7 +3,7 @@
     "description": "Extension DateTi for Nette",
     "type": "library",
     "require": {
-        "dateti/dateti": "^0.1.0",
+        "dateti/dateti": "^0.1.0|dev-master",
         "nette/di": "^3.0"
     },
     "require-dev": {
