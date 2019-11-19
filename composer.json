@@ -12,7 +12,7 @@
     },
     "autoload": {
         "psr-4": {
-            "DateTi\\DI\\": "src/DI"
+            "DateTi\\DI\\Nette\\": "src/DI/Nette"
         }
     },
     "license": "Apache-2.0",
